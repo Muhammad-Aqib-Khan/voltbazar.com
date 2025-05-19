@@ -14,7 +14,7 @@ interface Product {
 // This would typically come from an API or database
 const getProductById = (id: string): Product | undefined => {
   const products: Product[] = [
-    {
+   {
       id: '1',
       name: 'Oven',
       image: '/images/oven.png',
@@ -61,41 +61,59 @@ const getProductById = (id: string): Product | undefined => {
   return products.find(product => product.id === id);
 };
 
-export async function generateStaticParams() {
-  return [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: '4' },
-    { id: '5' },
-    { id: '6' },
-  ];
-}
-
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const product = getProductById(params.id);
-  return {
-    title: product ? product.name : 'Product Not Found',
-    description: product ? product.description : 'No product found.',
-  };
-}
-
 export default function ProductPage({ params }: { params: { id: string } }) {
+  
   const product = getProductById(params.id);
 
   if (!product) {
-    notFound();
+    return notFound();
   }
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-      <Image src={product.image} alt={product.name} width={400} height={300} className="mb-4" />
-      <p className="mb-2">{product.description}</p>
-      <div className="flex gap-2">
-        {product.tags.map(tag => (
-          <span key={tag} className="bg-gray-200 px-2 py-1 rounded text-xs">{tag}</span>
-        ))}
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="md:w-1/2">
+          <div className="relative h-96 w-full rounded-lg overflow-hidden">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+        <div className="md:w-1/2">
+          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+          <p className="text-lg mb-6">{product.description}</p>
+          
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Features</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>High energy efficiency rating</li>
+              <li>Smart connectivity options</li>
+              <li>Easy to use controls</li>
+              <li>Durable construction</li>
+            </ul>
+          </div>
+          
+          <div className="flex flex-wrap gap-2">
+            {product.tags.map(tag => (
+              <span 
+                key={tag}
+                className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+          
+          <button className="mt-8 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+      <div>
+        <ProductCarousel/>
       </div>
     </div>
   );
