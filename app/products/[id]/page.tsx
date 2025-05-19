@@ -61,7 +61,7 @@ const getProductById = (id: string): Product | undefined => {
   return products.find(product => product.id === id);
 };
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+export default function ProductPage({ params }: { params: { id: string } }) {
   const product = getProductById(params.id);
 
   if (!product) {
