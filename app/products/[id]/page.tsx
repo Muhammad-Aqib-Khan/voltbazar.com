@@ -12,7 +12,7 @@ interface Product {
 }
 
 // This would typically come from an API or database
-const getProductById = (id: string): Product | undefined => {
+const getProductById = async (id: string): Promise<Product | undefined> => {
   const products: Product[] = [
    {
       id: '1',
@@ -61,8 +61,8 @@ const getProductById = (id: string): Product | undefined => {
   return products.find(product => product.id === id);
 };
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = getProductById(params.id);
+export default async function ProductPage({ params }: { params: { id: string } }) {
+  const product = await getProductById(params.id);
 
   if (!product) {
     return notFound();
