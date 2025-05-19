@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ProductCarousel from '@/app/(components)/ProductCarousel';
 
 interface Product {
+  
   id: string;
   name: string;
   image: string;
@@ -60,8 +61,12 @@ const getProductById = (id: string): Product | undefined => {
 
   return products.find(product => product.id === id);
 };
-
-export default function ProductPage({ params }: { params: { id: string } }) {
+interface ProductPageProps {
+  params: {
+    id: string;
+  };
+}
+export default function ProductPage({ params }: ProductPageProps) {
   
   const product = getProductById(params.id);
 
