@@ -4,7 +4,6 @@ import Image from 'next/image';
 import ProductCarousel from '@/app/(components)/ProductCarousel';
 
 interface Product {
-  
   id: string;
   name: string;
   image: string;
@@ -13,7 +12,7 @@ interface Product {
 }
 
 // This would typically come from an API or database
-const getProductById = (id: string): Product | undefined => {
+const getProductById = async (id: string): Promise<Product | undefined> => {
   const products: Product[] = [
    {
       id: '1',
@@ -62,9 +61,9 @@ const getProductById = (id: string): Product | undefined => {
   return products.find(product => product.id === id);
 };
 
-export default function ProductPage({ params }:{params:{id:string}}) {
-  
-  const product = getProductById(params.id);
+export default async function ProductPage({ params }: { params:Promise< { id: string }> }) {
+  const { id } = await params;
+  const product = await getProductById(id);
 
   if (!product) {
     return notFound();
@@ -113,9 +112,9 @@ export default function ProductPage({ params }:{params:{id:string}}) {
           </button>
         </div>
       </div>
-      {/* <div>
+      <div>
         <ProductCarousel/>
-      </div> */}
+      </div>
     </div>
   );
 }
