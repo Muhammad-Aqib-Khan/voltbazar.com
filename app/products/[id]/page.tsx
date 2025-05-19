@@ -61,12 +61,8 @@ const getProductById = (id: string): Product | undefined => {
 
   return products.find(product => product.id === id);
 };
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
-export default function ProductPage({ params }: ProductPageProps) {
+
+export default function ProductPage({ params }:{params:{id:string}}) {
   
   const product = getProductById(params.id);
 
@@ -117,9 +113,9 @@ export default function ProductPage({ params }: ProductPageProps) {
           </button>
         </div>
       </div>
-      <div>
+      {/* <div>
         <ProductCarousel/>
-      </div>
+      </div> */}
     </div>
   );
 }
