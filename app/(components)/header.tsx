@@ -64,11 +64,11 @@ export default function Header() {
           {/* Logo */}
           <Link href="/">
             <Image
-              src="/waves.jpg"
+              src="/Waves.jpg"
               alt="Logo"
               width={120}
               height={35}
-              priority
+              
             />
           </Link>
 
@@ -119,7 +119,7 @@ export default function Header() {
           {/* CTA */}
           <div className="mt-4 md:mt-0">
             <Link
-              href="/products"
+              href="/Order"
               className="inline-block bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 text-sm font-medium transition"
             >
               Order Now
